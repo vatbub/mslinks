@@ -25,6 +25,11 @@ import mslinks.data.ItemID;
 
 public class LinkTargetIDList extends LinkedList<ItemID> implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3619823553066465595L;
+
 	public LinkTargetIDList() {}
 	
 	public LinkTargetIDList(ByteReader data) throws IOException, ShellLinkException {

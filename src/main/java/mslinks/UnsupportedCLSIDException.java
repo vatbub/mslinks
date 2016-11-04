@@ -16,4 +16,9 @@ package mslinks;
 
 public class UnsupportedCLSIDException extends ShellLinkException {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4816566022921995459L;
+
 }

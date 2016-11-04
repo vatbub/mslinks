@@ -23,6 +23,10 @@ import java.util.GregorianCalendar;
 import mslinks.Serializable;
 
 public class Filetime extends GregorianCalendar implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2258831109960118017L;
 	private long residue;
 	
 	public Filetime() {

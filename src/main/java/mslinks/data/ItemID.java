@@ -29,7 +29,9 @@ import mslinks.UnsupportedCLSIDException;
 public class ItemID implements Serializable {
 	
 	private static final GUID mycomputer = new GUID("20d04fe0-3aea-1069-a2d8-08002b30309d");
+	@SuppressWarnings("unused")
 	private static byte[] ub1 = new byte[] {4, 0, -17, -66}; // unknown bytes
+	@SuppressWarnings("unused")
 	private static byte[] ub2 = new byte[] {42, 0, 0, 0}; // unknown bytes
 
 	private static final int EXT_VERSION_WINXP = 3;
@@ -130,6 +132,7 @@ public class ItemID implements Serializable {
 
 		boolean unicodeName = longname != null && !longname.equals(shortname);
 			
+		@SuppressWarnings("unused")
 		int pos = bw.getPosition();
 		//bw.write(type);
 		int attr = 0;
