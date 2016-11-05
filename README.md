@@ -2,6 +2,17 @@ mslinks
 =======
 Library for parsing and creating Windows shortcut files (.lnk)
 ***
+This is a exact fork of [BlackOverlord666/mslinks](https://github.com/BlackOverlord666/mslinks), however, I published it on maven central:
+```xml
+<dependency>
+	<groupId>com.github.vatbub</groupId>
+	<artifactId>mslinks</artifactId>
+	<version>0.0.2</version>
+</dependency>
+```
+
+**PLEASE NOTE** that this fork is not under active developement anymore. Please post any feature requests and bugs at [BlackOverlord666/mslinks](https://github.com/BlackOverlord666/mslinks).
+***
 
 Partial implementation of [Shell Link (.LNK) Binary File Format](http://msdn.microsoft.com/en-us/library/dd871305.aspx)
 
@@ -14,7 +25,7 @@ You can edit most properties of the link such as working directory, tooltip text
 Easiest way to create link with default parameters: `ShellLink.createLink("targetfile", "linkfile.lnk")`
 
 Next sample demonstrates creating link for .bat file with setting working directory, icon and tune font parameters for console
-```
+```java
 package mslinks;
 
 import java.io.IOException;
@@ -39,7 +50,7 @@ public class Main {
 ```
 
 Final example creates recursive link that blocks explorer on Windows 7 while trying to get into the containing directory :D
-```
+```java
 package mslinks;
 
 import java.io.IOException;
