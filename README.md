@@ -7,7 +7,7 @@ This is a exact fork of [BlackOverlord666/mslinks](https://github.com/BlackOverl
 <dependency>
 	<groupId>com.github.vatbub</groupId>
 	<artifactId>mslinks</artifactId>
-	<version>1.0.2</version>
+	<version>1.0.3</version>
 </dependency>
 ```
 

@@ -2,12 +2,11 @@
 	https://github.com/BlackOverlord666/mslinks
 	
 	Copyright (c) 2015 Dmitrii Shamrikov
-
 	Licensed under the WTFPL
 	You may obtain a copy of the License at
- 
+
 	http://www.wtfpl.net/about/
- 
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -43,21 +42,14 @@ import mslinks.extra.VistaIDList;
 public class ShellLink {
 	private static Map<String, String> env = System.getenv();
 
-	@SuppressWarnings("rawtypes")
-	private static HashMap<Integer, Class> extraTypes = new HashMap<Integer, Class>() {
-		/**
-		* 
-		*/
-		private static final long serialVersionUID = -251174921377738516L;
+	private static HashMap<Integer, Class> extraTypes = new HashMap<Integer, Class>() {{
+		put(ConsoleData.signature, ConsoleData.class);
+		put(ConsoleFEData.signature, ConsoleFEData.class);
+		put(Tracker.signature, Tracker.class);
+		put(VistaIDList.signature, VistaIDList.class);
+		put(EnvironmentVariable.signature, EnvironmentVariable.class);
+	}};
 
-		{
-			put(ConsoleData.signature, ConsoleData.class);
-			put(ConsoleFEData.signature, ConsoleFEData.class);
-			put(Tracker.signature, Tracker.class);
-			put(VistaIDList.signature, VistaIDList.class);
-			put(EnvironmentVariable.signature, EnvironmentVariable.class);
-		}
-	};
 
 	private ShellLinkHeader header;
 	private LinkTargetIDList idlist;
@@ -67,7 +59,7 @@ public class ShellLink {
 
 	private Path linkFileSource;
 
-	private ShellLink() {
+	public ShellLink() {
 		header = new ShellLinkHeader();
 		header.getLinkFlags().setIsUnicode();
 	}
@@ -90,7 +82,6 @@ public class ShellLink {
 		in.close();
 	}
 
-	@SuppressWarnings("unchecked")
 	private ShellLink(ByteReader data) throws ShellLinkException, IOException {
 		header = new ShellLinkHeader(data);
 		LinkFlags lf = header.getLinkFlags();
@@ -110,20 +101,17 @@ public class ShellLink {
 			iconLocation = data.readUnicodeString();
 
 		while (true) {
-			int size = (int) data.read4bytes();
-			if (size < 4)
-				break;
-			int sign = (int) data.read4bytes();
+			int size = (int)data.read4bytes();
+			if (size < 4) break;
+			int sign = (int)data.read4bytes();
 			try {
-				@SuppressWarnings("rawtypes")
 				Class cl = extraTypes.get(sign);
 				if (cl != null)
-					extra.put(sign,
-							(Serializable) cl.getConstructor(ByteReader.class, int.class).newInstance(data, size));
+					extra.put(sign, (Serializable)cl.getConstructor(ByteReader.class, int.class).newInstance(data, size));
 				else
 					extra.put(sign, new Stub(data, size, sign));
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-					| InvocationTargetException | NoSuchMethodException | SecurityException e) {
+					| InvocationTargetException | NoSuchMethodException	| SecurityException e) {
 				e.printStackTrace();
 			}
 		}
@@ -156,24 +144,16 @@ public class ShellLink {
 		out.close();
 	}
 
-	public ShellLinkHeader getHeader() {
-		return header;
-	}
+	public ShellLinkHeader getHeader() { return header; }
 
-	public LinkInfo getLinkInfo() {
-		return info;
-	}
-
+	public LinkInfo getLinkInfo() { return info; }
 	public LinkInfo createLinkInfo() {
 		info = new LinkInfo();
 		header.getLinkFlags().setHasLinkInfo();
 		return info;
 	}
 
-	public String getName() {
-		return name;
-	}
-
+	public String getName() { return name; }
 	public ShellLink setName(String s) {
 		if (s == null)
 			header.getLinkFlags().clearHasName();
@@ -183,10 +163,7 @@ public class ShellLink {
 		return this;
 	}
 
-	public String getRelativePath() {
-		return relativePath;
-	}
-
+	public String getRelativePath() { return relativePath; }
 	public ShellLink setRelativePath(String s) {
 		if (s == null)
 			header.getLinkFlags().clearHasRelativePath();
@@ -199,10 +176,7 @@ public class ShellLink {
 		return this;
 	}
 
-	public String getWorkingDir() {
-		return workingDir;
-	}
-
+	public String getWorkingDir() { return workingDir; }
 	public ShellLink setWorkingDir(String s) {
 		if (s == null)
 			header.getLinkFlags().clearHasWorkingDir();
@@ -214,10 +188,7 @@ public class ShellLink {
 		return this;
 	}
 
-	public String getCMDArgs() {
-		return cmdArgs;
-	}
-
+	public String getCMDArgs() { return cmdArgs; }
 	public ShellLink setCMDArgs(String s) {
 		if (s == null)
 			header.getLinkFlags().clearHasArguments();
@@ -227,10 +198,7 @@ public class ShellLink {
 		return this;
 	}
 
-	public String getIconLocation() {
-		return iconLocation;
-	}
-
+	public String getIconLocation() { return iconLocation; }
 	public ShellLink setIconLocation(String s) {
 		if (s == null)
 			header.getLinkFlags().clearHasIconLocation();
@@ -245,7 +213,7 @@ public class ShellLink {
 	}
 
 	public ConsoleData getConsoleData() {
-		ConsoleData cd = (ConsoleData) extra.get(ConsoleData.signature);
+		ConsoleData cd = (ConsoleData)extra.get(ConsoleData.signature);
 		if (cd == null) {
 			cd = new ConsoleData();
 			extra.put(ConsoleData.signature, cd);
@@ -254,7 +222,7 @@ public class ShellLink {
 	}
 
 	public String getLanguage() {
-		ConsoleFEData cd = (ConsoleFEData) extra.get(ConsoleFEData.signature);
+		ConsoleFEData cd = (ConsoleFEData)extra.get(ConsoleFEData.signature);
 		if (cd == null) {
 			cd = new ConsoleFEData();
 			extra.put(ConsoleFEData.signature, cd);
@@ -263,7 +231,7 @@ public class ShellLink {
 	}
 
 	public ShellLink setLanguage(String s) {
-		ConsoleFEData cd = (ConsoleFEData) extra.get(ConsoleFEData.signature);
+		ConsoleFEData cd = (ConsoleFEData)extra.get(ConsoleFEData.signature);
 		if (cd == null) {
 			cd = new ConsoleFEData();
 			extra.put(ConsoleFEData.signature, cd);
@@ -333,9 +301,11 @@ public class ShellLink {
 		return "<unknown>";
 	}
 
-	public static ShellLink createLink(String target) {
-		ShellLink sl = new ShellLink();
-
+	/**
+	 * Set path of target file of directory. Function accepts local paths and network paths.
+	 * Environment variables are accepted but resolved here and aren't kept in link.
+	 */
+	public ShellLink setTarget(String target) {
 		target = resolveEnvVariables(target);
 
 		Path tar = Paths.get(target).toAbsolutePath();
@@ -343,40 +313,44 @@ public class ShellLink {
 
 		if (target.startsWith("\\\\")) {
 			int p1 = target.indexOf('\\', 2);
-			int p2 = target.indexOf('\\', p1 + 1);
+			int p2 = target.indexOf('\\', p1+1);
 
-			LinkInfo inf = sl.createLinkInfo();
+			LinkInfo inf = createLinkInfo();
 			inf.createCommonNetworkRelativeLink().setNetName(target.substring(0, p2));
-			inf.setCommonPathSuffix(target.substring(p2 + 1));
+			inf.setCommonPathSuffix(target.substring(p2+1));
 
 			if (Files.isDirectory(Paths.get(target)))
-				sl.header.getFileAttributesFlags().setDirecory();
+				header.getFileAttributesFlags().setDirecory();
 
-			sl.header.getLinkFlags().setHasExpString();
-			sl.extra.put(EnvironmentVariable.signature, new EnvironmentVariable().setVariable(target));
+			header.getLinkFlags().setHasExpString();
+			extra.put(EnvironmentVariable.signature, new EnvironmentVariable().setVariable(target));
 
-		} else
-			try {
-				sl.header.getLinkFlags().setHasLinkTargetIDList();
-				sl.idlist = new LinkTargetIDList();
-				String[] path = target.split("\\\\");
-				sl.idlist.add(new ItemID().setType(ItemID.TYPE_CLSID));
-				sl.idlist.add(new ItemID().setType(ItemID.TYPE_DRIVE).setName(path[0]));
-				for (int i = 1; i < path.length; i++)
-					sl.idlist.add(new ItemID().setType(ItemID.TYPE_DIRECTORY).setName(path[i]));
+		} else try {
+			header.getLinkFlags().setHasLinkTargetIDList();
+			idlist = new LinkTargetIDList();
+			String[] path = target.split("\\\\");
+			idlist.add(new ItemID().setType(ItemID.TYPE_CLSID));
+			idlist.add(new ItemID().setType(ItemID.TYPE_DRIVE).setName(path[0]));
+			for (int i=1; i<path.length; i++)
+				idlist.add(new ItemID().setType(ItemID.TYPE_DIRECTORY).setName(path[i]));
 
-				LinkInfo inf = sl.createLinkInfo();
-				inf.createVolumeID().setDriveType(VolumeID.DRIVE_FIXED);
-				inf.setLocalBasePath(target);
+			LinkInfo inf = createLinkInfo();
+			inf.createVolumeID().setDriveType(VolumeID.DRIVE_FIXED);
+			inf.setLocalBasePath(target);
 
-				if (Files.isDirectory(tar))
-					sl.header.getFileAttributesFlags().setDirecory();
-				else
-					sl.idlist.getLast().setType(ItemID.TYPE_FILE);
+			if (Files.isDirectory(tar))
+				header.getFileAttributesFlags().setDirecory();
+			else
+				idlist.getLast().setType(ItemID.TYPE_FILE);
 
-			} catch (ShellLinkException e) {
-			}
+		} catch (ShellLinkException e) {}
 
+		return this;
+	}
+
+	public static ShellLink createLink(String target) {
+		ShellLink sl = new ShellLink();
+		sl.setTarget( target );
 		return sl;
 	}
 
@@ -391,7 +365,7 @@ public class ShellLink {
 		for (String i : env.keySet()) {
 			String p = i.replace("(", "\\(").replace(")", "\\)");
 			String r = env.get(i).replace("\\", "\\\\");
-			path = Pattern.compile("%" + p + "%", Pattern.CASE_INSENSITIVE).matcher(path).replaceAll(r);
+			path = Pattern.compile("%"+p+"%", Pattern.CASE_INSENSITIVE).matcher(path).replaceAll(r);
 		}
 		return path;
 	}
