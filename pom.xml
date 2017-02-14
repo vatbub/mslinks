@@ -1,76 +1,90 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<repositories>
-		<repository>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<id>bintray-vatbub-fokprojectsReleases</id>
-			<name>bintray</name>
-			<url>http://dl.bintray.com/vatbub/fokprojectsReleases</url>
-		</repository>
-		<repository>
-			<snapshots />
-			<id>snapshots</id>
-			<name>libs-snapshot</name>
-			<url>https://oss.jfrog.org/artifactory/libs-snapshot</url>
-		</repository>
-	</repositories>
+    <repositories>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>bintray-vatbub-fokprojectsReleases</id>
+            <name>bintray</name>
+            <url>http://dl.bintray.com/vatbub/fokprojectsReleases</url>
+        </repository>
+        <repository>
+            <snapshots/>
+            <id>snapshots</id>
+            <name>libs-snapshot</name>
+            <url>https://oss.jfrog.org/artifactory/libs-snapshot</url>
+        </repository>
+    </repositories>
 
-	<parent>
-		<groupId>com.github.vatbub</groupId>
-		<artifactId>parentPom</artifactId>
-		<version>0.0.20-SNAPSHOT</version>
-	</parent>
+    <parent>
+        <groupId>com.github.vatbub</groupId>
+        <artifactId>parentPom</artifactId>
+        <version>0.0.20-SNAPSHOT</version>
+    </parent>
 
-	<artifactId>mslinks</artifactId>
-	<version>1.0.4-SNAPSHOT</version>
-	<name>FOKProjects MSLinks</name>
-	<description>Java library for parsing and creating Windows shortcut files</description>
-	<inceptionYear>2016</inceptionYear>
-	<url>https://github.com/vatbub/mslinks</url>
+    <artifactId>mslinks</artifactId>
+    <version>1.0.4-SNAPSHOT</version>
+    <name>FOKProjects MSLinks</name>
+    <description>Java library for parsing and creating Windows shortcut files</description>
+    <inceptionYear>2016</inceptionYear>
+    <url>https://github.com/vatbub/mslinks</url>
 
-	<developers>
-		<developer>
-			<id>fkammel</id>
-			<name>Frederik Kammel</name>
-			<email>vatbub123@googlemail.com</email>
-			<url>https://fokprojects.mo-mar.de/</url>
-			<roles>
-				<role>architect</role>
-				<role>developer</role>
-			</roles>
-			<timezone>Europe/Berlin</timezone>
-		</developer>
-		<developer>
-			<id>blackoverlord666</id>
-			<name>BlackOverlord666</name>
-			<email>vatbub123+empty@googlemail.com</email>
-			<url>https://github.com/BlackOverlord666</url>
-		</developer>
-	</developers>
+    <developers>
+        <developer>
+            <id>fkammel</id>
+            <name>Frederik Kammel</name>
+            <email>vatbub123@googlemail.com</email>
+            <url>https://fokprojects.mo-mar.de/</url>
+            <roles>
+                <role>architect</role>
+                <role>developer</role>
+            </roles>
+            <timezone>Europe/Berlin</timezone>
+        </developer>
+        <developer>
+            <id>blackoverlord666</id>
+            <name>BlackOverlord666</name>
+            <email>vatbub123+empty@googlemail.com</email>
+            <url>https://github.com/BlackOverlord666</url>
+        </developer>
+    </developers>
 
-	<scm>
-		<connection>scm:git:git@github.com:vatbub/mslinks.git</connection>
-		<url>https://github.com/vatbub/mslinks</url>
-		<developerConnection>scm:git:git@github.com:vatbub/mslinks.git</developerConnection>
-		<tag>testRelease</tag>
-	</scm>
+    <scm>
+        <connection>scm:git:git@github.com:vatbub/mslinks.git</connection>
+        <url>https://github.com/vatbub/mslinks</url>
+        <developerConnection>scm:git:git@github.com:vatbub/mslinks.git</developerConnection>
+        <tag>testRelease</tag>
+    </scm>
 
-	<issueManagement>
-		<system>GitHub</system>
-		<url>https://github.com/vatbub/mslinks/issues</url>
-	</issueManagement>
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/vatbub/mslinks/issues</url>
+    </issueManagement>
 
-	<ciManagement>
-		<system>Travis CI</system>
-		<url>https://travis-ci.org/vatbub/mslinks</url>
-	</ciManagement>
+    <ciManagement>
+        <system>Travis CI</system>
+        <url>https://travis-ci.org/vatbub/mslinks</url>
+    </ciManagement>
 
-	<properties>
-		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
-		<gitRepoName>mslinks</gitRepoName>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+    <properties>
+        <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+        <gitRepoName>mslinks</gitRepoName>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
