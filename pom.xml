@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <repositories>
@@ -11,7 +12,7 @@
             <url>http://dl.bintray.com/vatbub/fokprojectsReleases</url>
         </repository>
         <repository>
-            <snapshots />
+            <snapshots/>
             <id>snapshots</id>
             <name>libs-snapshot</name>
             <url>https://oss.jfrog.org/artifactory/libs-snapshot</url>
@@ -84,7 +85,7 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
-           <plugin>
+            <plugin>
                 <groupId>com.google.code.maven-replacer-plugin</groupId>
                 <artifactId>replacer</artifactId>
                 <version>1.5.3</version>
@@ -96,18 +97,9 @@
                             <goal>replace</goal>
                         </goals>
                         <configuration>
-                            <files>
-                                <file>${basedir}/src/main/java/mslinks/ShellLink.java</file>
-                            </files>
-                            <outputFiles>
-                                <file>${basedir}/src/main/java/mslinks/ShellLink.java</file>
-                            </outputFiles>
-                            <replacements>
-                                <replacement>
-                                    <token>project.version</token>
-                                    <value>${project.version}</value>
-                                </replacement>
-                            </replacements>
+                            <file>${basedir}/src/main/java/mslinks/ShellLink.java</file>
+                            <token>project.version</token>
+                            <value>${project.version}</value>
                         </configuration>
                     </execution>
                     <execution>
@@ -117,18 +109,9 @@
                             <goal>replace</goal>
                         </goals>
                         <configuration>
-                            <files>
-                                <file>${basedir}/src/main/java/mslinks/ShellLink.java</file>
-                            </files>
-                            <outputFiles>
-                                <file>${basedir}/src/main/java/mslinks/ShellLink.java</file>
-                            </outputFiles>
-                            <replacements>
-                                <replacement>
-                                    <token>${project.version}</token>
-                                    <value>project.version</value>
-                                </replacement>
-                            </replacements>
+                            <file>${basedir}/src/main/java/mslinks/ShellLink.java</file>
+                            <token>${project.version}</token>
+                            <value>project.version</value>
                         </configuration>
                     </execution>
                 </executions>

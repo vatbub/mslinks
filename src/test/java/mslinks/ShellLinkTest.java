@@ -21,13 +21,14 @@ package mslinks;
  */
 
 
+import org.junit.Assert;
 import org.junit.Test;
 
 public class ShellLinkTest {
 
-	@Test
-	public void dummyTest(){
-		assert true;
-	}
+    @Test
+    public void versionTest() {
+        Assert.assertNotEquals("project.version", ShellLink.VERSION);
+    }
 
 }
