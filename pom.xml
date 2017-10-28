@@ -11,6 +11,14 @@
             <url>http://dl.bintray.com/vatbub/fokprojectsReleases</url>
         </repository>
         <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>bintray</name>
+            <url>http://jcenter.bintray.com</url>
+        </repository>
+        <repository>
             <snapshots />
             <id>snapshots</id>
             <name>libs-snapshot</name>
