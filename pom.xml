@@ -38,10 +38,6 @@
             <name>Frederik Kammel</name>
             <email>vatbub123@googlemail.com</email>
             <url>https://fokprojects.mo-mar.de/</url>
-            <roles>
-                <role>architect</role>
-                <role>developer</role>
-            </roles>
             <timezone>Europe/Berlin</timezone>
         </developer>
         <developer>
@@ -49,6 +45,9 @@
             <name>BlackOverlord666</name>
             <email>vatbub123+empty@googlemail.com</email>
             <url>https://github.com/BlackOverlord666</url>
+            <roles>
+                <role>developer</role>
+            </roles>
         </developer>
     </developers>
 
