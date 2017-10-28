@@ -84,6 +84,55 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
+           <plugin>
+                <groupId>com.google.code.maven-replacer-plugin</groupId>
+                <artifactId>replacer</artifactId>
+                <version>1.5.3</version>
+                <executions>
+                    <execution>
+                        <id>inject-version</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>replace</goal>
+                        </goals>
+                        <configuration>
+                            <files>
+                                <file>${basedir}/src/main/java/mslinks/ShellLink.java</file>
+                            </files>
+                            <outputFiles>
+                                <file>${basedir}/src/main/java/mslinks/ShellLink.java</file>
+                            </outputFiles>
+                            <replacements>
+                                <replacement>
+                                    <token>project.version</token>
+                                    <value>${project.version}</value>
+                                </replacement>
+                            </replacements>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>revert-version-injection</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>replace</goal>
+                        </goals>
+                        <configuration>
+                            <files>
+                                <file>${basedir}/src/main/java/mslinks/ShellLink.java</file>
+                            </files>
+                            <outputFiles>
+                                <file>${basedir}/src/main/java/mslinks/ShellLink.java</file>
+                            </outputFiles>
+                            <replacements>
+                                <replacement>
+                                    <token>${project.version}</token>
+                                    <value>project.version</value>
+                                </replacement>
+                            </replacements>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>
