@@ -57,11 +57,11 @@
     <parent>
         <groupId>com.github.vatbub</groupId>
         <artifactId>parentPom</artifactId>
-        <version>0.0.26-SNAPSHOT</version>
+        <version>0.0.25</version>
     </parent>
 
     <artifactId>mslinks</artifactId>
-    <version>1.0.5-SNAPSHOT</version>
+    <version>1.0.5</version>
     <name>FOKProjects MSLinks</name>
     <description>Java library for parsing and creating Windows shortcut files</description>
     <inceptionYear>2016</inceptionYear>
@@ -90,7 +90,7 @@
         <connection>scm:git:git@github.com:vatbub/mslinks.git</connection>
         <url>https://github.com/vatbub/mslinks</url>
         <developerConnection>scm:git:git@github.com:vatbub/mslinks.git</developerConnection>
-        <tag>testRelease</tag>
+        <tag>mslinks-1.0.5</tag>
     </scm>
 
     <issueManagement>
