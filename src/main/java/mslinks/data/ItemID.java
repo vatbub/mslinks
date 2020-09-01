@@ -24,8 +24,8 @@ import io.ByteReader;
 import io.ByteWriter;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.regex.Pattern;
 
 import mslinks.Serializable;
@@ -33,18 +33,14 @@ import mslinks.ShellLinkException;
 import mslinks.UnsupportedCLSIDException;
 
 public class ItemID implements Serializable {
-	
+
 	private static final GUID mycomputer = new GUID("20d04fe0-3aea-1069-a2d8-08002b30309d");
-	@SuppressWarnings("unused")
-	private static byte[] ub1 = new byte[] {4, 0, -17, -66}; // unknown bytes
-	@SuppressWarnings("unused")
-	private static byte[] ub2 = new byte[] {42, 0, 0, 0}; // unknown bytes
 
 	private static final int EXT_VERSION_WINXP = 3;
 	private static final int EXT_VERSION_VISTA = 7;
 	private static final int EXT_VERSION_WIN7 = 8;
 	private static final int EXT_VERSION_WIN8 = 9; // same for win10
-	
+
 	public static final int TYPE_UNKNOWN = 0;
 	public static final int TYPE_FILE_OLD = 0x36;
 	public static final int TYPE_DIRECTORY_OLD = 0x35;
@@ -53,22 +49,23 @@ public class ItemID implements Serializable {
 	public static final int TYPE_DRIVE_OLD = 0x23;
 	public static final int TYPE_DRIVE = 0x2f;
 	public static final int TYPE_CLSID = 0x1f;
-	
+
 	private int type;
 	private int size;
-	private String shortname, longname;
+	private String shortname;
+	private String longname;
 	private GUID clsid;
 	private byte[] data;
-	
+
 	public ItemID() {
 		shortname = "";
 		longname = "";
 	}
-	
+
 	public ItemID(byte[] d) {
 		data = d;
 	}
-	
+
 	public ItemID(ByteReader br, int maxSize) throws IOException, ShellLinkException {
 		int pos = br.getPosition();
 		int endPos = pos + maxSize;
@@ -123,9 +120,9 @@ public class ItemID implements Serializable {
 		} else if (type == TYPE_CLSID) {
 			br.read(); // unknown
 			clsid = new GUID(br);
-			if (!clsid.equals(mycomputer)) 
+			if (!clsid.equals(mycomputer))
 				throw new UnsupportedCLSIDException();
-		} else 
+		} else
 			throw new ShellLinkException("unsupported ItemID type");
 	}
 
@@ -137,10 +134,7 @@ public class ItemID implements Serializable {
 		}
 
 		boolean unicodeName = longname != null && !longname.equals(shortname);
-			
-		@SuppressWarnings("unused")
-		int pos = bw.getPosition();
-		//bw.write(type);
+
 		int attr = 0;
 		switch (type) {
 			case TYPE_CLSID:
@@ -169,8 +163,10 @@ public class ItemID implements Serializable {
 				bw.write(0);
 				bw.write4bytes(size);
 				break;
+			default:
+				assert false;
 		}
-		
+
 		bw.write4bytes(0); // last modified
 		bw.write2bytes(attr);
 		// use simple old format without extension used in versions before xp
@@ -184,34 +180,18 @@ public class ItemID implements Serializable {
 			bw.write(0);
 			bw.write(0);
 		}
-
-		/*
-		bw.writeBytes(shortname.getBytes());
-		bw.write(0);
-		if (((bw.getPosition() - pos) & 1) != 0) 
-			bw.write(0);
-		bw.write2bytes(2 + 2 + ub1.length + 4 + 4 + ub2.length + 4 + (longname.length() + 1) * 2 + 2);
-		bw.write2bytes(EXT_VERSION_WINXP);
-		bw.writeBytes(ub1);
-		bw.write4bytes(0); // date created
-		bw.write4bytes(0); // last accessed
-		bw.writeBytes(ub2);
-		bw.write4bytes(0); // unknown block depending on os version (always use WinXP)
-		bw.writeUnicodeString(longname, true);
-		bw.write2bytes((shortname.length() & ~1) + 16);
-		*/
 	}
-	
+
 	public String getName() {
 		if (longname != null && !longname.equals(""))
 			return longname;
 		return shortname;
 	}
-	
+
 	public ItemID setName(String s) throws ShellLinkException {
-		if (s == null) 
+		if (s == null)
 			return this;
-		
+
 		if (type == TYPE_FILE || type == TYPE_DIRECTORY) {
 			if (s.contains("\\"))
 				throw new ShellLinkException("wrong name");
@@ -230,7 +210,7 @@ public class ItemID implements Serializable {
 		}
 		return this;
 	}
-	
+
 	public int getSize() { return size; }
 	public ItemID setSize(int s) throws ShellLinkException {
 		if (type != TYPE_FILE)
@@ -238,7 +218,7 @@ public class ItemID implements Serializable {
 		size = s;
 		return this;
 	}
-	
+
 	public int getType() { return type; }
 	public ItemID setType(int t) throws ShellLinkException {
 		if (t == TYPE_CLSID) {
@@ -253,49 +233,49 @@ public class ItemID implements Serializable {
 		throw new ShellLinkException("wrong type");
 	}
 
-	private static boolean isLongFilename( String filename )
+	private static boolean isLongFilename(String filename)
 	{
-		if( filename.charAt( 0 ) == '.' || filename.charAt( filename.length() - 1 ) == '.' )
+		if (filename.charAt(0) == '.' || filename.charAt(filename.length() - 1) == '.')
 			return true;
 
-		if( !filename.matches( "^\\p{ASCII}+$" ) )
+		if (!filename.matches("^\\p{ASCII}+$"))
 			return true;
 
 		// no matter whether it is file or directory
-		int dotIdx = filename.lastIndexOf( '.' );
-		String baseName = dotIdx == -1 ? filename : filename.substring( 0, dotIdx );
-		String ext = dotIdx == -1 ? "" : filename.substring( dotIdx + 1 );
+		int dotIdx = filename.lastIndexOf('.');
+		String baseName = dotIdx == -1 ? filename : filename.substring(0, dotIdx);
+		String ext = dotIdx == -1 ? "" : filename.substring(dotIdx + 1);
 
 		String wrongSymbolsPattern = ".*[\\.\"\\/\\\\\\[\\]:;=, ]+.*";
-		return baseName.length() > 8 || ext.length() > 3 || baseName.matches( wrongSymbolsPattern ) || ext.matches( wrongSymbolsPattern );
+		return baseName.length() > 8 || ext.length() > 3 || baseName.matches(wrongSymbolsPattern) || ext.matches(wrongSymbolsPattern);
 	}
 
-	private static String generateShortName( String longname )
+	private static String generateShortName(String longname)
 	{
 		// assume that it is actually long, don't check it again
-		longname = longname.replaceAll( "\\.$|^\\.", "" );
+		longname = longname.replaceAll("\\.$|^\\.", "");
 
-		int dotIdx = longname.lastIndexOf( '.' );
-		String baseName = dotIdx == -1 ? longname : longname.substring( 0, dotIdx );
-		String ext = dotIdx == -1 ? "" : longname.substring( dotIdx + 1 );
+		int dotIdx = longname.lastIndexOf('.');
+		String baseName = dotIdx == -1 ? longname : longname.substring(0, dotIdx);
+		String ext = dotIdx == -1 ? "" : longname.substring(dotIdx + 1);
 
-		ext = ext.replaceAll( " ", "" ).replaceAll( "[\\.\"\\/\\\\\\[\\]:;=,\\+]", "_" );
-		ext = ext.substring( 0, Math.min( 3, ext.length() ) );
+		ext = ext.replace(" ", "").replaceAll("[\\.\"\\/\\\\\\[\\]:;=,\\+]", "_");
+		ext = ext.substring(0, Math.min(3, ext.length()));
 
-		baseName = baseName.replaceAll( " ", "" ).replaceAll( "[\\.\"\\/\\\\\\[\\]:;=,\\+]", "_" );
-		baseName = baseName.substring( 0, Math.min( 6, baseName.length() ) );
+		baseName = baseName.replace(" ", "").replaceAll("[\\.\"\\/\\\\\\[\\]:;=,\\+]", "_");
+		baseName = baseName.substring(0, Math.min(6, baseName.length()));
 
 		// well, for same short names we should use "~2", "~3" and so on,
 		// but actual index is generated by os while creating a file and stored in filesystem
 		// so it is not possible to get actual one
-		StringBuilder shortname = new StringBuilder( baseName + "~1" + ( ext.isEmpty() ? "" : "." + ext ) );
+		StringBuilder shortname = new StringBuilder(baseName + "~1" + (ext.isEmpty() ? "" : "." + ext));
 
 		// i have no idea how non-asci symbols are converted in dos names
-		CharsetEncoder asciiEncoder = Charset.forName( "US-ASCII" ).newEncoder();
-		for( int i = 0; i < shortname.length(); ++i )
+		CharsetEncoder asciiEncoder = StandardCharsets.US_ASCII.newEncoder();
+		for (int i = 0; i < shortname.length(); ++i)
 		{
-			if( !asciiEncoder.canEncode( shortname.charAt( i ) ) )
-				shortname.setCharAt( i, '_' );
+			if (!asciiEncoder.canEncode(shortname.charAt(i)))
+				shortname.setCharAt(i, '_');
 		}
 
 		return shortname.toString().toUpperCase();

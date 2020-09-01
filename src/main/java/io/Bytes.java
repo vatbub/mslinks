@@ -20,8 +20,9 @@ package io;
  * #L%
  */
 
+public final class Bytes {
 
-public class Bytes {
+	private Bytes() {}
 
 	public static short reverse(short n) {
 		return (short)(((n & 0xff) << 8) | ((n & 0xff00) >> 8));
