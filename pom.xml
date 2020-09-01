@@ -158,6 +158,19 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <configuration>
+                    <licenseName>apache_v2</licenseName>
+                    <excludes>
+                        <exclude>**/*.json</exclude>
+                    </excludes>
+                    <inceptionYear>2015</inceptionYear>
+                    <organizationName>Dmitrii Shamrikov, Frederik Kammel</organizationName>
+                    <projectName>https://github.com/vatbub/mslinks</projectName>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>

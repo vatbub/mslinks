@@ -2,9 +2,9 @@ package mslinks;
 
 /*-
  * #%L
- * FOKProjects MSLinks
+ * https://github.com/vatbub/mslinks
  * %%
- * Copyright (C) 2016 - 2017 Frederik Kammel
+ * Copyright (C) 2015 - 2020 Dmitrii Shamrikov, Frederik Kammel
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,6 @@ package mslinks;
  * limitations under the License.
  * #L%
  */
-
 
 import org.junit.Assert;
 import org.junit.Test;
