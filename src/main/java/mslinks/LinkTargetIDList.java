@@ -39,6 +39,7 @@ import io.ByteReader;
 import io.ByteWriter;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 
@@ -89,9 +90,9 @@ public class LinkTargetIDList extends LinkedList<ItemID> implements Serializable
 			ByteArrayOutputStream ba = new ByteArrayOutputStream();
 			ByteWriter w = new ByteWriter(ba);
 			
-			j.serialize(w);			
-			b[i++] = ba.toByteArray();					
-		}			
+			j.serialize(w);
+			b[i++] = ba.toByteArray();
+		}
 		for (byte[] j : b)
 			size += j.length + 2;
 		
@@ -104,9 +105,23 @@ public class LinkTargetIDList extends LinkedList<ItemID> implements Serializable
 	}
 	
 	public boolean isCorrect() {
-		for (ItemID i : this) 
+		for (ItemID i : this)
 			if (i.getType() == ItemID.TYPE_UNKNOWN)
 				return false;
 		return true;
+	}
+
+	public String buildPath()
+	{
+		var path = new StringBuilder();
+		for (ItemID i : this) {
+			if (i.getType() == ItemID.TYPE_DRIVE || i.getType() == ItemID.TYPE_DRIVE_OLD)
+				path.append(i.getName());
+			else if (i.getType() == ItemID.TYPE_DIRECTORY || i.getType() == ItemID.TYPE_DIRECTORY_OLD)
+				path.append(i.getName() + File.separator);
+			else if (i.getType() == ItemID.TYPE_FILE || i.getType() == ItemID.TYPE_FILE_OLD)
+				path.append(i.getName());
+		}
+		return path.toString();
 	}
 }

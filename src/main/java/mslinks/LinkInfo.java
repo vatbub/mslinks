@@ -143,7 +143,7 @@ public class LinkInfo implements Serializable {
 			bw.write4bytes(0); // volumeid offset
 			bw.write4bytes(0); // localBasePath offset
 		}
-		if (lif.hasCommonNetworkRelativeLinkAndPathSuffix()) {			
+		if (lif.hasCommonNetworkRelativeLinkAndPathSuffix()) {
 			bw.write4bytes(off); // CommonNetworkRelativeLink offset 
 			off += cnrlink_b.length;
 			bw.write4bytes(off); // commonPathSuffix
@@ -161,7 +161,7 @@ public class LinkInfo implements Serializable {
 				bw.write4bytes(0);
 				bw.write4bytes(off); // CommonPathSuffixUnicode offset 
 				off += commonPathSuffix.length() * 2 + 2;
-			}				
+			}
 		}
 		
 		if (lif.hasVolumeIDAndLocalBasePath()) {
@@ -189,7 +189,7 @@ public class LinkInfo implements Serializable {
 		}
 		
 		while (bw.getPosition() < pos + size)
-			bw.write(0);		
+			bw.write(0);
 	}
 	
 	private byte[] toByteArray(Serializable o) throws IOException {
@@ -231,7 +231,7 @@ public class LinkInfo implements Serializable {
 	public CNRLink createCommonNetworkRelativeLink() {
 		cnrlink = new CNRLink();
 		commonPathSuffix = "";
-		lif.setCommonNetworkRelativeLinkAndPathSuffix();		
+		lif.setCommonNetworkRelativeLinkAndPathSuffix();
 		return cnrlink;
 	}
 	
@@ -241,9 +241,9 @@ public class LinkInfo implements Serializable {
 	 * If s is null takes no effect 
 	 */
 	public LinkInfo setCommonPathSuffix(String s) {
-		if (s == null) return this;		
+		if (s == null) return this;
 		commonPathSuffix = s;
-		if (cnrlink == null) cnrlink = new CNRLink();		
+		if (cnrlink == null) cnrlink = new CNRLink();
 		lif.setCommonNetworkRelativeLinkAndPathSuffix();
 		return this;
 	}
