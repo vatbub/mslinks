@@ -1,15 +1,11 @@
 language: java
 jdk:
-- openjdk8
+- openjdk10
 cache:
   directories:
   - "$HOME/.m2"
 before_install:
 - git clone -b travis `git config --get remote.origin.url` target/travis
-install:
-- wget https://s3.eu-central-1.amazonaws.com/vatbubjdk/jdk-8u191-linux-x64.tar.gz -nv
-- tar -xf jdk-8u191-linux-x64.tar.gz
-- export JAVA_HOME=/home/travis/build/vatbub/mslinks/jdk1.8.0_191/
 script:
 - mvn deploy --settings target/travis/settings.xml
 branches:
