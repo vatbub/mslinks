@@ -125,6 +125,7 @@
                 <configuration>
                     <source>10</source>
                     <target>10</target>
+                    <release>10</release>
                 </configuration>
             </plugin>
             <plugin>
