@@ -3,11 +3,22 @@ mslinks
 Library for parsing and creating Windows shortcut files (.lnk)
 ***
 This is a exact fork of [BlackOverlord666/mslinks](https://github.com/BlackOverlord666/mslinks), however, I published it on maven central:
+
+**Java 10**
 ```xml
 <dependency>
 	<groupId>com.github.vatbub</groupId>
 	<artifactId>mslinks</artifactId>
-	<version>1.0.3.1</version>
+	<version>1.0.6.1</version>
+</dependency>
+```
+
+**Java 1.8**
+```xml
+<dependency>
+	<groupId>com.github.vatbub</groupId>
+	<artifactId>mslinks</artifactId>
+	<version>1.0.5</version>
 </dependency>
 ```
 
