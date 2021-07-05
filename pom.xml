@@ -3,7 +3,7 @@
 
     <groupId>com.github.vatbub</groupId>
     <artifactId>mslinks</artifactId>
-    <version>1.0.6.2</version>
+    <version>1.0.7-SNAPSHOT</version>
     <name>FOKProjects MSLinks</name>
     <description>Java library for parsing and creating Windows shortcut files</description>
     <inceptionYear>2016</inceptionYear>
@@ -44,7 +44,7 @@
         <connection>scm:git:git@github.com:vatbub/${gitRepoName}.git</connection>
         <url>https://github.com/vatbub/${gitRepoName}</url>
         <developerConnection>scm:git:git@github.com:vatbub/${gitRepoName}.git</developerConnection>
-        <tag>mslinks-1.0.6.2</tag>
+        <tag>testRelease</tag>
     </scm>
 
     <distributionManagement>
