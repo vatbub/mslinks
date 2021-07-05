@@ -7,9 +7,13 @@ This is a exact fork of [BlackOverlord666/mslinks](https://github.com/BlackOverl
 <dependency>
 	<groupId>com.github.vatbub</groupId>
 	<artifactId>mslinks</artifactId>
-	<version>1.0.3.1</version>
+	<version>1.0.5.1</version>
 </dependency>
 ```
+
+**Note:** This is the java-7 branch. It is not under active development and only kept for the rare folks who still use Java 7 or 8. For Java 10 + please check out the master branch.
+
+**Note to the folks who still use Java7/8:** I know it's a pain, but you should really upgrade to the latest JDK!
 
 **PLEASE NOTE** that this fork is not under active developement anymore. Please post any feature requests and bugs at [BlackOverlord666/mslinks](https://github.com/BlackOverlord666/mslinks).
 ***
