@@ -9,16 +9,16 @@ This is a exact fork of [BlackOverlord666/mslinks](https://github.com/BlackOverl
 <dependency>
 	<groupId>com.github.vatbub</groupId>
 	<artifactId>mslinks</artifactId>
-	<version>1.0.6.1</version>
+	<version>1.0.6.2</version>
 </dependency>
 ```
 
-**Java 1.8**
+**Java 1.7**
 ```xml
 <dependency>
 	<groupId>com.github.vatbub</groupId>
 	<artifactId>mslinks</artifactId>
-	<version>1.0.5</version>
+	<version>1.0.5.1</version>
 </dependency>
 ```
 
