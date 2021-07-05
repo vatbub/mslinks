@@ -1,10 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.vatbub</groupId>
     <artifactId>mslinks</artifactId>
-    <version>1.0.7-SNAPSHOT</version>
+    <version>1.0.6.2</version>
     <name>FOKProjects MSLinks</name>
     <description>Java library for parsing and creating Windows shortcut files</description>
     <inceptionYear>2016</inceptionYear>
@@ -45,7 +44,7 @@
         <connection>scm:git:git@github.com:vatbub/${gitRepoName}.git</connection>
         <url>https://github.com/vatbub/${gitRepoName}</url>
         <developerConnection>scm:git:git@github.com:vatbub/${gitRepoName}.git</developerConnection>
-        <tag>testRelease</tag>
+        <tag>mslinks-1.0.6.2</tag>
     </scm>
 
     <distributionManagement>
